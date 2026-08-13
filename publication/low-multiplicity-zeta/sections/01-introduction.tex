@@ -1,0 +1,111 @@
+\section{Introduction}
+
+Let $\rho=\beta+i\gamma$ run over the distinct nontrivial zeros of $\zeta(s)$, and let $m_\rho\geq1$ denote multiplicity.  Write
+\[
+N(T_1,T_2)=\sum_{T_1<\gamma\leq T_2}m_\rho,
+\qquad
+N_d(T_1,T_2)=\#\{\rho:T_1<\gamma\leq T_2\}.
+\]
+The recent argument \cite{Claude2026} gives, with an optimized Montgomery--Taylor window,
+\[
+\liminf_{T\to\infty}\frac{N_0^s(T,2T)}{N(T,2T)}
+\geq 2-\kMT
+=0.672500703679411\ldots,
+\]
+and
+\[
+\liminf_{T\to\infty}\frac{N_d(T,2T)}{N(T,2T)}
+\geq \frac{3-\kMT}{2}
+=0.836250351839705\ldots,
+\]
+where
+\begin{equation}\label{eq:kappa}
+\kMT
+=\frac{1}{2}+\frac{1}{\sqrt2}\cot\!\left(\frac{1}{\sqrt2}\right)
+=1.327499296320588354265620209\ldots.
+\end{equation}
+Here $N_0^s$ counts simple critical-line zeros.
+
+The higher-level multiplicity problem has previously been studied through $n$-level correlations.  Assuming the generalized Riemann hypothesis, Gon\c{c}alves, de Laat, and Leijenhorst \cite{GDL2025} prove that at least $0.9614$ of the zeta-zero multiset has multiplicity at most two and at least $0.9787$ has multiplicity at most three.  Explicit unconditional bounds for zeros of a prescribed large multiplicity are given by Simoni\v{c}, Trudgian, and Turnage-Butterbaugh \cite{STTB2022}.  The present note addresses a different regime: fixed low multiplicities, without RH, using only the two-trace input of \cite{Claude2026}.
+
+A targeted search of the accessible primary literature did not locate an earlier unconditional fixed-$r$ hierarchy with the formulas below, especially the distinct-location profile and the sharpness statement for the complete scalar family.  This is a provisional priority assessment rather than a claim of first publication; a specialist bibliography check remains part of the review process.
+
+For $r\geq1$, define the \emph{low-multiplicity multiset count}
+\begin{equation}\label{eq:Mrdef}
+M_{\leq r}(T_1,T_2)
+:=\sum_{\substack{\rho\ \mathrm{distinct}\\T_1<\gamma\leq T_2\\m_\rho\leq r}}m_\rho
+\end{equation}
+and the \emph{low-multiplicity distinct count}
+\begin{equation}\label{eq:Drdef}
+D_{\leq r}(T_1,T_2)
+:=\#\{\rho:T_1<\gamma\leq T_2,\ m_\rho\leq r\}.
+\end{equation}
+Thus $M_{\leq1}=D_{\leq1}$ is the number of simple zeros at all horizontal locations, while $M_{\leq r}$ counts every copy of a zero whose location has multiplicity at most $r$.
+
+Our constants use
+\begin{equation}\label{eq:Bdef}
+B:=(3-2\sqrt2)(\kMT-1)
+=0.056189995913322830066962070\ldots.
+\end{equation}
+The exact enclosure in Section~\ref{sec:verification} gives
+\begin{equation}\label{eq:basicbounds}
+1<\kMT<\frac43,
+\qquad
+0<B<\frac1{15}.
+\end{equation}
+In particular, $r-1-rB>0$ for every $r\geq3$, so all denominators below are positive.
+
+\begin{theorem}[Multiset low-multiplicity profile]\label{thm:multiset}
+For the nontrivial zeros of $\zeta(s)$,
+\begin{align}
+\liminf_{T\to\infty}\frac{M_{\leq1}(T,2T)}{N(T,2T)}
+&\geq 2-\kMT,\label{eq:M1}\\
+\liminf_{T\to\infty}\frac{M_{\leq2}(T,2T)}{N(T,2T)}
+&\geq \frac{3-\kMT}{2},\label{eq:M2}
+\end{align}
+and, for every fixed integer $r\geq3$,
+\begin{equation}\label{eq:Mr}
+\liminf_{T\to\infty}\frac{M_{\leq r}(T,2T)}{N(T,2T)}
+\geq 1-B\frac{r+1}{r-1}.
+\end{equation}
+The same inequalities hold for cumulative counts on $(0,T]$ and for every fixed primitive Dirichlet $L$-function.
+\end{theorem}
+
+\begin{theorem}[Distinct-location multiplicity profile]\label{thm:distinct}
+For the nontrivial zeros of $\zeta(s)$,
+\begin{align}
+\liminf_{T\to\infty}\frac{D_{\leq1}(T,2T)}{N_d(T,2T)}
+&\geq 1-\frac{\kMT-1}{3-\kMT},\label{eq:D1}\\
+\liminf_{T\to\infty}\frac{D_{\leq2}(T,2T)}{N_d(T,2T)}
+&\geq 1-\frac{\kMT-1}{2(4-\kMT)},\label{eq:D2}
+\end{align}
+and, for every fixed integer $r\geq3$,
+\begin{equation}\label{eq:Dr}
+\liminf_{T\to\infty}\frac{D_{\leq r}(T,2T)}{N_d(T,2T)}
+\geq 1-\frac{B}{r-1-rB}.
+\end{equation}
+The same inequalities hold cumulatively and for every fixed primitive Dirichlet $L$-function.
+\end{theorem}
+
+The first line of Theorem~\ref{thm:distinct} is also an elementary consequence of the distinct-zero lower bound in \cite{Claude2026}.  The higher lines use the full one-parameter rank--trace family and are the main new content.
+
+\begin{table}[ht]
+\centering
+\caption{Rigorous lower bounds, rounded downward.  The middle column counts copies in the zero multiset; the final column counts distinct locations.}
+\label{tab:values}
+\begin{tabular}{@{}rcc@{}}
+\toprule
+$r$ & $M_{\leq r}/N$ & $D_{\leq r}/N_d$\\
+\midrule
+1 & 0.672500703679411 & 0.804185854391506\\
+2 & 0.836250351839705 & 0.938727930759812\\
+3 & 0.887620008173354 & 0.969319059130202\\
+4 & 0.906350006811128 & 0.979753104026191\\
+5 & 0.915715006130015 & 0.984891304068350\\
+6 & 0.921334005721348 & 0.987949456853123\\
+8 & 0.927755719540013 & 0.991422003329087\\
+10& 0.931323338328160 & 0.993340918495729\\
+20& 0.937895267674748 & 0.996856714757252\\
+\bottomrule
+\end{tabular}
+\end{table}

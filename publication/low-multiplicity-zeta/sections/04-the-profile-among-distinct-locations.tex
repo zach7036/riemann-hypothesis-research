@@ -1,0 +1,86 @@
+\section{The profile among distinct locations}
+
+Put
+\[
+H_r(T_1,T_2):=N_d(T_1,T_2)-D_{\leq r}(T_1,T_2),
+\]
+the number of distinct locations of multiplicity at least $r+1$.
+
+\begin{lemma}[Distinct-location majorant]\label{lem:distmaj}
+Fix $r\geq1$.  Suppose $c,\alpha,\beta,\gamma>0$ satisfy $\alpha=2c-\kMT$ and, for every integer $m\geq1$,
+\begin{align}
+k_c(m)&\leq \alpha m+\beta-\gamma\ind_{m\geq r+1},\label{eq:diston}\\
+c^2&\leq 2\alpha m+2\beta-2\gamma\ind_{m\geq r+1}.\label{eq:distpair}
+\end{align}
+Then
+\begin{equation}\label{eq:distgeneric}
+\limsup_{T\to\infty}\frac{H_r(T,2T)}{N_d(T,2T)}\leq\frac{\beta}{\gamma}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Summing the pointwise inequalities and using \eqref{eq:countidentity} gives
+\[
+\sum_m k_c(m)x_m+c^2\sum_m y_m
+\leq \alpha N+\beta N_d-\gamma H_r.
+\]
+For every $\varepsilon>0$, Proposition~\ref{prop:master} and $\alpha=2c-\kMT$ imply, for all sufficiently large $T$,
+\[
+\gamma H_r\leq\beta N_d+\varepsilon N.
+\]
+The distinct-zero theorem in \cite{Claude2026} gives $N_d\geq\delta N$ eventually for some fixed $\delta>0$.  Hence
+\[
+\limsup_{T\to\infty}\frac{H_r}{N_d}
+\leq\frac{\beta}{\gamma}+\frac{\varepsilon}{\gamma\delta}.
+\]
+Let $\varepsilon\downarrow0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:distinct}]
+For $r=1$, take
+\[
+c=2,
+\quad \alpha=4-\kMT,
+\quad \beta=\kMT-1,
+\quad \gamma=3-\kMT.
+\]
+For $m=1$ the on-line inequality is equality.  For $m\geq2$, the right side is increasing in $m$ and equals $k_2(2)=4$ at $m=2$.  The pair inequality has nonnegative slack.  Lemma~\ref{lem:distmaj} gives \eqref{eq:D1}.
+
+For $r=2$, take
+\[
+c=3,
+\quad \alpha=6-\kMT,
+\quad \beta=\kMT-1,
+\quad \gamma=2(4-\kMT).
+\]
+Again the on-line inequality is equality at $m=1$ and $m=3$, and has positive slack at $m=2$; the pair inequality is weaker.  This gives \eqref{eq:D2}.
+
+For $r\geq3$, use $C=2+\sqrt2$ and set
+\begin{equation}\label{eq:distparams}
+\alpha:=2C-\kMT,
+\qquad
+\beta:=\kMT-1,
+\qquad
+\gamma:=\alpha(r+1)+\beta-C^2.
+\end{equation}
+For $m=1$, equation \eqref{eq:balance} gives
+\[
+k_C(1)=2C-1=\alpha+\beta.
+\]
+For $m=2,3$ one checks exactly that
+\begin{equation}\label{eq:smallslack}
+\alpha m+\beta-k_C(m)=(m-1)\bigl(m-(\kMT-1)\bigr)\geq0.
+\end{equation}
+For $4\leq m\leq r$, $k_C(m)=C^2$.  Since $\alpha>0$, it is enough to check $m=4$; here
+\[
+4\alpha+\beta-C^2=4C-3\kMT+1>0,
+\]
+using $\kMT<4/3$.  For $m\geq r+1$, the right side of \eqref{eq:diston} is increasing in $m$ and equals $C^2$ at $m=r+1$ by the definition of $\gamma$.  Thus \eqref{eq:diston} holds.  The pair inequality is equality for a simple pair and has positive slack otherwise.
+
+Lemma~\ref{lem:distmaj} therefore gives
+$\limsup_{T\to\infty}H_r(T,2T)/N_d(T,2T)\leq\beta/\gamma$.  Writing $B=(3-2\sqrt2)(\kMT-1)$ and simplifying,
+\[
+\frac{\beta}{\gamma}=\frac{B}{r-1-rB},
+\]
+which proves \eqref{eq:Dr}.  Cumulative and Dirichlet variants follow as before.
+\end{proof}

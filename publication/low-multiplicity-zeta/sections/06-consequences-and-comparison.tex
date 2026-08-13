@@ -1,0 +1,101 @@
+\section{Consequences and comparison}
+
+Theorems~\ref{thm:multiset} and \ref{thm:distinct} imply, for example,
+\[
+\limsup_{T\to\infty}
+\frac{N(T,2T)-M_{\leq3}(T,2T)}{N(T,2T)}
+\leq0.112379991826645\ldots,
+\]
+so at most $11.2380\%$ of the zero multiset may be supported on locations of multiplicity at least four.  Among distinct locations, at most $3.0681\%$ may have multiplicity at least four.
+
+For $j\geq2$, define the exact-multiplicity multiset and distinct counts
+\[
+E_j(T_1,T_2):=\sum_{\substack{T_1<\gamma\leq T_2\\m_\rho=j}}m_\rho,
+\qquad
+E_{d,j}(T_1,T_2):=\#\{\rho:T_1<\gamma\leq T_2,\ m_\rho=j\}.
+\]
+Taking $r=j-1$ in the two profile theorems gives the following exact-multiplicity upper bounds.
+
+\begin{corollary}[Exact multiplicity profile]\label{cor:exact}
+One has
+\begin{align*}
+\limsup_{T\to\infty}\frac{E_2(T,2T)}{N(T,2T)}
+&\leq \kMT-1,\\
+\limsup_{T\to\infty}\frac{E_3(T,2T)}{N(T,2T)}
+&\leq \frac{\kMT-1}{2},\\
+\limsup_{T\to\infty}\frac{E_j(T,2T)}{N(T,2T)}
+&\leq B\frac{j}{j-2}\qquad(j\geq4),
+\end{align*}
+and
+\begin{align*}
+\limsup_{T\to\infty}\frac{E_{d,2}(T,2T)}{N_d(T,2T)}
+&\leq \frac{\kMT-1}{3-\kMT},\\
+\limsup_{T\to\infty}\frac{E_{d,3}(T,2T)}{N_d(T,2T)}
+&\leq \frac{\kMT-1}{2(4-\kMT)},\\
+\limsup_{T\to\infty}\frac{E_{d,j}(T,2T)}{N_d(T,2T)}
+&\leq \frac{B}{j-2-(j-1)B}\qquad(j\geq4).
+\end{align*}
+Every bound is sharp within the scalar information model of Theorem~\ref{thm:sharp}.
+\end{corollary}
+
+\begin{proof}
+The exact-multiplicity-$j$ set is contained in the set of locations of multiplicity at least $j$, so the inequalities follow from Theorems~\ref{thm:multiset} and \ref{thm:distinct} with $r=j-1$.  The sharpness distributions for $r=j-1$ place all of their high-multiplicity mass at multiplicity exactly $j$.
+\end{proof}
+
+For fixed $r$, these are unconditional two-trace bounds.  They are weaker numerically than the GRH-dependent higher-correlation results of \cite{GDL2025}; for instance, that work obtains $0.9614$ at multiplicity at most two and $0.9787$ at multiplicity at most three.  The distinction is that no RH or higher-level correlation input is used here.
+
+Corollary~\ref{cor:exact} also complements the unconditional exact-multiplicity theorem of \cite{STTB2022}.  Their estimate is uniform in $j$ and decays exponentially, becoming effective relative to elementary simple-zero bounds for extremely large multiplicity.  The present estimates are fixed-$j$ consequences of two traces and are aimed at the low-multiplicity regime; in particular, the multiset upper bound $Bj/(j-2)$ is not asserted uniformly when $j$ grows with $T$.
+
+As $r\to\infty$, the multiset lower bound tends to
+\[
+1-B=0.943810004086677\ldots,
+\]
+whereas the distinct-location lower bound tends to one with tail
+\[
+1-\frac{D_{\leq r}}{N_d}
+\leq \frac{B}{r}+O\!\left(\frac1{r^2}\right).
+\]
+Thus the scalar two-trace information forces high multiplicities to occupy a vanishing fraction of distinct zero locations, although it still permits a fixed fraction of the zero multiset to escape to multiplicities growing with height.
+
+\paragraph{Separate derivative problem.}
+The analogous optimization for zeros of $\xi'$ is not used in this paper.  It requires profile-specific analytic integration beyond the scalar bookkeeping above and is therefore kept in a separate research package rather than folded into the present theorem claim.
+
+\section{Exact verification, source audit, and formalization path}\label{sec:verification}
+
+The accompanying standard-library Python certificate uses exact rational arithmetic.  The identity
+\[
+\kMT=\frac12+\frac{\cos(1/\sqrt2)}{\sin(1/\sqrt2)/(1/\sqrt2)}
+\]
+allows both numerator and denominator to be enclosed by alternating Taylor series with rational terms:
+\[
+\cos(1/\sqrt2)=\sum_{n\geq0}\frac{(-1)^n}{2^n(2n)!},
+\qquad
+\frac{\sin(1/\sqrt2)}{1/\sqrt2}
+=\sum_{n\geq0}\frac{(-1)^n}{2^n(2n+1)!}.
+\]
+The certificate encloses $\kMT$, $B$, every table entry, and every exact-multiplicity upper bound by rational intervals.  All printed lower bounds are rounded downward; all printed upper bounds are rounded upward.  A second script uses exact symbolic algebra to verify the parameter simplifications, the square identities in the sharpness proof, and the pointwise majorants over their complete integer ranges.
+
+The source audit at commit \path{3635e74826a4c1fcece7d1cd2b6fa75e43a00510} records the following dependency chain:
+\Needspace{12\baselineskip}
+\begin{description}[leftmargin=1.3em,style=nextline,font=\normalfont\ttfamily]
+\item[ZeroSide.Mult block normalization and Poisson lemmas]
+identify the normalized zero compression and verify the hypotheses of the generic matrix theorem;
+\item[ZeroSide.RankTraceMult.rank\_trace\_mult\_k\_le]
+arbitrary-$c$ inequality \eqref{eq:ranktracegeneric};
+\item[Assembly.ctr\_sub\_frobSq\_perturb]
+arbitrary trace coefficient in \eqref{eq:perturb};
+\item[ThmD.tracesBoundsD\_concrete and tendsto\_cRatio\_concrete]
+fixed-$\lambda$ Montgomery--Taylor trace asymptotics;
+\item[eventually\_tailPackageD and local-count inputs]
+$B_T\to0$ and $O(T^{1/2}\log T)$ boundary multiplicity.
+\end{description}
+
+A complete Lean extension now has a finite scope:
+\begin{enumerate}[leftmargin=2em]
+\item define $M_{\leq r}$, $D_{\leq r}$, and the exact-multiplicity counts;
+\item package Proposition~\ref{prop:master} by combining the existing generic rank--trace and perturbation declarations with the existing Theorem-D trace/tail endgame;
+\item formalize the elementary scalar majorants and sharpness identities;
+\item instantiate at $c=2$, $c=3$, and $c=2+\sqrt2$, then reuse the existing dyadic and fixed-Dirichlet-$L$ summation layers;
+\item run the pinned complete build and the repository's \texttt{\#print axioms} audit.
+\end{enumerate}
+No new explicit-formula, prime-side, or zero-localization theorem is needed.  Lean and Lake are not installed in the present runtime, so the extension supplied with this draft is a source-level blueprint rather than a compiled formal proof.

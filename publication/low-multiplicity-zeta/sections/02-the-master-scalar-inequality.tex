@@ -1,0 +1,88 @@
+\section{The master scalar inequality}
+
+We isolate the exact consequence of the analytic input that is used in the remainder of the paper.  For $c>0$ and $m\geq0$, put
+\begin{equation}\label{eq:kc}
+k_c(m):=c^2-\bigl((c-m)_+\bigr)^2
+=\begin{cases}
+2cm-m^2,&m\leq c,\\
+c^2,&m\geq c.
+\end{cases}
+\end{equation}
+For $m\geq0$ one has
+\begin{equation}\label{eq:kcbounds}
+0\leq k_c(m)\leq c^2.
+\end{equation}
+Indeed, $0\leq(c-m)_+\leq c$.
+
+For the actual interval $(T,2T]$, let $x_m(T)$ be the number of critical-line zero locations of multiplicity $m$, and let $y_m(T)$ be the number of off-line reflected pairs whose two members each have multiplicity $m$.  Thus
+\begin{equation}\label{eq:countidentity}
+N(T,2T)=\sum_{m\geq1}m x_m(T)+2\sum_{m\geq1}m y_m(T).
+\end{equation}
+
+For $0<\lambda<1$, let
+\[
+c_\lambda^*=
+\frac{\sqrt2\tan(\lambda/\sqrt2)}
+{1+(\lambda/\sqrt2)\tan(\lambda/\sqrt2)},
+\qquad
+\kappa_\lambda=(c_\lambda^*)^{-1}.
+\]
+The Montgomery--Taylor optimization in \cite{Claude2026} gives $\kappa_\lambda\to\kMT$ as $\lambda\to1^-$.  The following epsilon-form is the precise interface needed below.
+
+\begin{proposition}[Arbitrary-$c$ master inequality]\label{prop:master}
+For every fixed $c>0$ and every $\varepsilon>0$, there exists $T_0=T_0(c,\varepsilon)$ such that, for all $T\geq T_0$,
+\begin{equation}\label{eq:master}
+(2c-\kMT-\varepsilon)N(T,2T)
+\leq
+\sum_{m\geq1}k_c(m)x_m(T)+c^2\sum_{m\geq1}y_m(T).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Fix $c>0$ and $\varepsilon>0$.  Choose $\lambda\in(0,1)$ sufficiently close to one that
+\[
+\kappa_\lambda<\kMT+\frac{\varepsilon}{4}.
+\]
+Use the Montgomery--Taylor window at this fixed bandwidth.  Let $\widehat A$ be the normalized compression formed from the zeros in the enlarged height window, and write $\widehat G=\widehat A+\widehat E$.
+
+The zero-block normalization and Poisson lemmas in
+\path{Zeta23/ZeroSide/Mult.lean} identify the on-line part with the matrix model used by the
+kernel-checked theorem \path{rank_trace_mult_k_le} in
+\path{Zeta23/ZeroSide/RankTraceMult.lean} and verify its vector-norm and positive-index hypotheses.  Applying that theorem gives, for every $c>0$,
+\begin{equation}\label{eq:ranktracegeneric}
+2c\,\tr\widehat A-\|\widehat A\|_F^2
+\leq
+\sum_{\rho\ \mathrm{on\ line\ in}\ I'}k_c(m_\rho)+c^2p(I'),
+\end{equation}
+where $p(I')$ is the number of reflected off-line pairs in the enlarged window.  No independence of the evaluation vectors is assumed.
+
+The kernel-checked coefficient-generic perturbation theorem \path{ctr_sub_frobSq_perturb} in \path{Zeta23/Assembly/SeamMult.lean} gives
+\begin{equation}\label{eq:perturb}
+2c\,\tr\widehat G-\|\widehat G\|_F^2
+-B_T\bigl(2c+2\|\widehat G\|_F+B_T\bigr)
+\leq
+2c\,\tr\widehat A-\|\widehat A\|_F^2,
+\end{equation}
+where $B_T\to0$ for fixed $\lambda$.  The trace theorem for the same window gives
+\[
+\tr\widehat G=N(T,2T)+o_\lambda(N(T,2T)),
+\qquad
+\|\widehat G\|_F^2\leq
+\bigl(\kappa_\lambda+o_\lambda(1)\bigr)N(T,2T).
+\]
+Consequently $\|\widehat G\|_F=O_\lambda(N^{1/2})$, and the perturbation term in \eqref{eq:perturb} is $o_{c,\lambda}(N)$.
+
+The two boundary strips have total zero multiplicity $O(T^{1/2}\log T)=o(N)$.  By \eqref{eq:kcbounds}, every boundary on-line location costs at most $c^2$, while every boundary pair also costs $c^2$; their combined scalar charge is therefore at most $c^2$ times the boundary multiplicity and is $o_c(N)$.  Removing the boundary terms from \eqref{eq:ranktracegeneric}, and then taking $T$ sufficiently large, yields
+\[
+\left(2c-\kappa_\lambda-\frac{3\varepsilon}{4}\right)N(T,2T)
+\leq
+\sum_{m\geq1}k_c(m)x_m(T)+c^2\sum_{m\geq1}y_m(T).
+\]
+The choice of $\lambda$ implies \eqref{eq:master}.
+\end{proof}
+
+\begin{remark}[What is and is not reused]\label{rem:reuse}
+The source tree currently specializes the final Montgomery--Taylor multiplicity endgame to $c=2$ and $c=3$.  Proposition~\ref{prop:master} does not assume an unproved new analytic estimate: it combines two already kernel-checked arbitrary-coefficient lemmas with the already formalized fixed-bandwidth trace and tail asymptotics, then performs the elementary boundary-charge estimate above.  A future Lean extension must still package this combination as one generic theorem, but no new explicit formula or prime-correlation input is required.
+\end{remark}
+
+The rest of the paper is a sharp finite-dimensional consequence of Proposition~\ref{prop:master}.

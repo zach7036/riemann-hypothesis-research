@@ -1,0 +1,85 @@
+\section{The multiset hierarchy}
+
+We first record a general majorization device.
+
+\begin{lemma}[Multiset majorant]\label{lem:multmaj}
+Fix $r\geq1$ and suppose $c,\alpha,\beta>0$ satisfy, for every integer $m\geq1$,
+\begin{align}
+k_c(m)&\leq \alpha m+\beta m\ind_{m\leq r},\label{eq:onmaj}\\
+c^2&\leq 2\alpha m+2\beta m\ind_{m\leq r}.\label{eq:pairmaj}
+\end{align}
+Then
+\begin{equation}\label{eq:multgeneric}
+\liminf_{T\to\infty}\frac{M_{\leq r}(T,2T)}{N(T,2T)}
+\geq \frac{2c-\kMT-\alpha}{\beta}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Sum \eqref{eq:onmaj} over critical-line points and \eqref{eq:pairmaj} over reflected pairs.  By \eqref{eq:countidentity}, the $\alpha$-terms sum exactly to $\alpha N$ and the $\beta$-terms to $\beta M_{\leq r}$.  Proposition~\ref{prop:master} gives, for every $\varepsilon>0$ and all sufficiently large $T$,
+\[
+(2c-\kMT-\varepsilon)N\leq \alpha N+\beta M_{\leq r}.
+\]
+Divide by $N$, take the lower limit, and then let $\varepsilon\downarrow0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:multiset}]
+For $r=1$, take
+\[
+c=2,\qquad \alpha=2,\qquad \beta=1.
+\]
+Then $k_2(1)=3=2+1$, while $k_2(m)=4\leq2m$ for $m\geq2$; the pair inequality is immediate.  Lemma~\ref{lem:multmaj} gives $2-\kMT$.
+
+For $r=2$, take
+\[
+c=3,\qquad \alpha=3,\qquad \beta=2.
+\]
+Here $k_3(1)=5$, $k_3(2)=8$, and $k_3(m)=9$ for $m\geq3$, so the two pointwise inequalities again hold.  This gives $(3-\kMT)/2$.
+
+Now let $r\geq3$ and set
+\begin{equation}\label{eq:Cdef}
+C:=2+\sqrt2,
+\qquad
+\alpha_r:=\frac{C^2}{r+1},
+\qquad
+\beta_r:=\frac{C^2(r-1)}{2(r+1)}.
+\end{equation}
+The balancing identity
+\begin{equation}\label{eq:balance}
+C^2=2(2C-1)
+\end{equation}
+implies
+\[
+\alpha_r+\beta_r=2C-1=\frac{C^2}{2}.
+\]
+For $m\leq r$ and $m\leq C$, equation \eqref{eq:kc} gives
+\[
+k_C(m)=m(2C-m)\leq m(2C-1)=m(\alpha_r+\beta_r).
+\]
+For $m\leq r$ and $m\geq C$, one has
+\[
+k_C(m)=C^2\leq \frac{C^2}{2}m=m(\alpha_r+\beta_r).
+\]
+For $m\geq r+1$, since $r+1\geq4>C$,
+\[
+k_C(m)=C^2=\alpha_r(r+1)\leq\alpha_rm.
+\]
+This proves the on-line majorant.  For a reflected pair, if $m\leq r$ then
+\[
+2m(\alpha_r+\beta_r)=mC^2\geq C^2,
+\]
+and if $m\geq r+1$ then $2\alpha_rm\geq2C^2>C^2$.  Hence Lemma~\ref{lem:multmaj} applies and yields
+\[
+\liminf_{T\to\infty}\frac{M_{\leq r}(T,2T)}{N(T,2T)}
+\geq
+\frac{2C-\kMT-\alpha_r}{\beta_r}.
+\]
+Direct simplification, using $(2+\sqrt2)^{-2}=3/2-\sqrt2$, gives
+\[
+\frac{2C-\kMT-\alpha_r}{\beta_r}
+=1-(3-2\sqrt2)(\kMT-1)\frac{r+1}{r-1},
+\]
+which is \eqref{eq:Mr}.
+
+The cumulative result follows by dyadic summation exactly as in \cite{Claude2026}.  The fixed primitive Dirichlet $L$-function case uses the corresponding trace theorem from that paper; the zero-side scalar argument is unchanged.
+\end{proof}
