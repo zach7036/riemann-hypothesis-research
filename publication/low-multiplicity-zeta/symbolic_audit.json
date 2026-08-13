@@ -1,13 +1,10 @@
 {
-  "symbolic": {
-    "balance_C": true,
-    "alpha_plus_beta": true,
-    "multiset_formula": true,
-    "distinct_formula": true,
-    "sharp_total_count": true,
-    "sharp_multiset_mass": true,
-    "sharp_distinct_ratio": true,
-    "sharp_square": true
-  },
-  "status": "All exact symbolic assertions passed. The broader grid and LP results are recorded in multiplicity_hierarchy_verification.txt."
+  "balance_C": true,
+  "alpha_plus_beta": true,
+  "multiset_formula": true,
+  "distinct_formula": true,
+  "sharp_total_count": true,
+  "sharp_multiset_mass": true,
+  "sharp_distinct_ratio": true,
+  "sharp_square": true
 }
