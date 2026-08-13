@@ -1,98 +1,118 @@
-# Riemann Hypothesis research program
+# Riemann Hypothesis Research Program
 
-Research drafts, exact certificates, verification scripts, and exploratory notes on zeta-zero multiplicity and RH-adjacent trace methods.
+**AI-assisted research on zeta-zero multiplicity, critical-line methods, and RH-adjacent trace techniques.**
 
 > [!IMPORTANT]
-> **This repository does not contain a proof of the Riemann Hypothesis.** Its strongest item is an unrefereed publication candidate deriving low-multiplicity profiles from the recent unconditional Claude/Anthropic two-trace theorem. Other branches are explicitly exploratory.
+> **This repository does not contain a proof of the Riemann Hypothesis.** Its strongest result is an **unrefereed theorem candidate** on low multiplicities of zeros of the Riemann zeta function. Other RH-facing branches are explicitly labeled exploratory.
 
-## Main publication candidate
+## Main result candidate
 
-[`publication/low-multiplicity-zeta/`](publication/low-multiplicity-zeta/) contains the manuscript
+The most mature work is the manuscript **“Unconditional low-multiplicity profiles for zeros of the Riemann zeta function.”** It builds on the recent unconditional Claude/Anthropic two-trace theorem and optimizes the full multiplicity-aware scalar rank–trace family for every fixed multiplicity cutoff.
 
-**“Unconditional low-multiplicity profiles for zeros of the Riemann zeta function.”**
-
-For each fixed integer `r`, it derives lower bounds for:
+For each fixed integer `r >= 1`, the manuscript derives candidate unconditional lower bounds for:
 
 1. the fraction of the zero **multiset** supported on locations of multiplicity at most `r`;
 2. the fraction of **distinct zero locations** having multiplicity at most `r`.
 
-Selected proposed unconditional bounds are:
+Selected bounds:
 
-| Maximum multiplicity | Multiset mass | Distinct locations |
+| Maximum multiplicity | Zero-multiset mass | Distinct locations |
 |---:|---:|---:|
-| 3 | 88.7620008173354% | 96.9319059130202% |
-| 4 | 90.6350006811128% | 97.9753104026191% |
+| 1 | 67.2500703679411% | 80.4185854391506% |
+| 2 | 83.6250351839705% | 93.8727930759812% |
+| 3 | **88.7620008173354%** | **96.9319059130202%** |
+| 4 | **90.6350006811128%** | **97.9753104026191%** |
+| 5 | 91.5715006130015% | 98.4891304068350% |
+| 10 | 93.1323338328160% | 99.3340918495729% |
 
-The manuscript also gives exact-multiplicity upper profiles and abstract extremal distributions showing sharpness within the complete scalar rank–trace information model.
+The manuscript also gives exact-multiplicity upper bounds and abstract extremal distributions showing that the formulas are sharp within the scalar rank–trace information model. This sharpness statement is about the relaxation, not a claim that those extremal distributions occur among actual zeta zeros.
 
-### Status
+## Status
 
-- Paper proof and exact arithmetic certificates: present.
-- Independent computational stress tests: present.
-- External specialist review: outstanding.
-- New Lean integration: outstanding.
-- Comprehensive priority determination: outstanding.
+| Workstream | Status |
+|---|---|
+| **Low-multiplicity profiles** | **Publication candidate** — paper-level proof, exact certificates, computational stress tests; external review and Lean integration still needed |
+| **Amplitude / critical-bandwidth endpoint** | Exploratory, substantially developed |
+| **Short-interval xi-prime program** | Exploratory theorem candidate; full analytic transfer unfinished |
+| **Depth-spectrum / positivity barriers** | Exploratory harmonic analysis |
+| **Critical-edge / Nyquist analysis** | Exploratory model results |
+| **Complementary Hankel detector** | Exploratory finite-rank algebra |
+| **Riemann Hypothesis** | **Open** |
 
-Read the [publication-readiness audit](publication/low-multiplicity-zeta/publication_readiness_audit.md) before quoting any result.
+See [`docs/RESEARCH_MAP.md`](docs/RESEARCH_MAP.md) and the [publication-readiness audit](publication/low-multiplicity-zeta/publication_readiness_audit.md) for the authoritative claim ledger.
 
-## Repository layout
+## Quick links
 
-- `publication/low-multiplicity-zeta/` — manuscript, LaTeX, exact certificates, data tables, review material, formalization map, and audit.
-- `exploratory/amplitude-endpoint/` — proposed exact-dilation endpoint architecture and hostile referee audit.
-- `exploratory/xi-prime-and-short-interval/` — exact window-functional certificate and unfinished localization program.
-- `exploratory/depth-spectrum/` — provisional depth-sensitive harmonic-analysis work.
-- `exploratory/critical-edge-nyquist/` — historical model note on edge resonance and nullity.
-- `exploratory/complementary-hankel/` — historical finite-phase-rank detector note.
-- `docs/RESEARCH_MAP.md` — concise claim ledger.
-- `references/` — upstream foundation and citation information.
+### Publication candidate
 
-## Reproduction
+- [Manuscript source](publication/low-multiplicity-zeta/low_multiplicity_zeta.tex)
+- [Theorem summary](publication/low-multiplicity-zeta/THEOREM.md)
+- [Publication-readiness audit](publication/low-multiplicity-zeta/publication_readiness_audit.md)
+- [Exact certificate](publication/low-multiplicity-zeta/certify_low_multiplicity.py)
+- [Independent verification](publication/low-multiplicity-zeta/verify_multiplicity_hierarchy.py)
+- [Certified constants](publication/low-multiplicity-zeta/constants.csv)
+- [Exact-multiplicity bounds](publication/low-multiplicity-zeta/exact_multiplicity_upper.csv)
+- [Lean formalization map](publication/low-multiplicity-zeta/FORMALIZATION_MAP.md)
+- [Priority-search log](publication/low-multiplicity-zeta/PRIORITY_SEARCH_LOG.md)
+- [Reviewer cover note](publication/low-multiplicity-zeta/REVIEWER_COVER_NOTE.md)
 
-The main exact certificate uses only Python's standard library:
+### Exploratory research
+
+- [Amplitude endpoint](exploratory/amplitude-endpoint/README.md)
+- [Xi-prime and short intervals](exploratory/xi-prime-and-short-interval/README.md)
+- [Depth spectrum](exploratory/depth-spectrum/README.md)
+- [Critical edge / Nyquist](exploratory/critical-edge-nyquist/README.md)
+- [Complementary Hankel](exploratory/complementary-hankel/README.md)
+- [Consolidated exploratory findings](docs/EXPLORATORY_FINDINGS.md)
+
+## Reproduce the main result
+
+The exact certificate uses only the Python standard library:
 
 ```bash
 cd publication/low-multiplicity-zeta
 python certify_low_multiplicity_exact.py
 ```
 
-The independent stress test additionally needs `sympy`, `numpy`, `scipy`, and `mpmath`:
+The independent stress test uses `sympy`, `numpy`, `scipy`, and `mpmath`:
 
 ```bash
 python verify_multiplicity_hierarchy.py
 ```
 
-Run the complete local verification suite with:
+Optional verification dependencies are listed in [`requirements-verification.txt`](requirements-verification.txt). No GitHub Actions workflows are included; verification is intentionally manual.
 
-```bash
-./scripts/run_all_checks.sh
-```
+## Upstream foundation
 
-Rebuild the manuscript with:
+The publication candidate relies on:
 
-```bash
-./scripts/build_paper.sh
-```
+- Claude, *More than two thirds of the zeros of the Riemann zeta function lie on the critical line* (2026)
+- [`anthropics/zeta-23-lean`](https://github.com/anthropics/zeta-23-lean)
+- [Anthropic research announcement](https://www.anthropic.com/research/riemann-zeta)
 
-No GitHub Actions workflows are included; verification is intentionally manual. A convenience `Makefile` is provided, and optional numerical dependencies are pinned in `requirements-verification.txt`.
+That work gives approximately **67.25%** simple critical-line zeros and **83.625%** distinct zeros unconditionally. This repository does not claim to reprove that analytic foundation; the main new contribution here is the low-multiplicity optimization and bookkeeping layer.
 
-## Upstream analytic input
+## Why this is not RH
 
-The publication candidate relies on the unconditional theorem and formal development in:
+A density result does not eliminate a sparse exceptional sequence of off-line zeros. The upstream two-trace architecture is itself insensitive to sufficiently sparse exceptions. The exploratory branches investigate possible phase-sensitive and geometric refinements, but no argument here proves that every nontrivial zero lies on the critical line.
 
-- Claude, *More than two thirds of the zeros of the Riemann zeta function lie on the critical line*.
-- <https://github.com/anthropics/zeta-23-lean>
-- <https://www.anthropic.com/research/riemann-zeta>
+## Review and contributions
 
-This repository does not claim to reprove that analytic number theory.
+Mathematical scrutiny is welcome, especially:
+
+- precise gap-finding or independent proof checks;
+- literature-priority checks;
+- Lean formalization of the new hierarchy;
+- improvements to exploratory branches that preserve a strict theorem/candidate distinction.
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) and the [mathematical review template](.github/ISSUE_TEMPLATE/mathematical-review.md).
 
 ## Authorship and AI disclosure
 
-Zach Waddle assembled and is circulating the research program. GPT-5.6 Pro and other AI systems assisted with derivation, adversarial checking, computation, source organization, and manuscript preparation. Human responsibility for any public mathematical claim requires independent expert review.
+**Zach Waddle** assembled and is circulating this research program. GPT-5.6 Pro and other AI systems assisted with derivation, adversarial checking, computation, literature organization, and manuscript preparation.
 
-## Publishing
-
-See [`PUBLISHING.md`](PUBLISHING.md) for the exact GitHub CLI command. No GitHub Actions workflows are included.
+See [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md), [`NOTICE.md`](NOTICE.md), and [`CITATION.cff`](CITATION.cff).
 
 ## License
 
-Unless a file says otherwise, original repository contents are licensed under the Apache License 2.0. External works are cited but not redistributed.
+Unless a file states otherwise, original repository contents are licensed under the **Apache License 2.0**. External works are cited but not redistributed.
