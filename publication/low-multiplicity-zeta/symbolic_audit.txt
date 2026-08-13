@@ -1,0 +1,13 @@
+LOW-MULTIPLICITY SYMBOLIC AUDIT
+=================================
+
+balance_C: passed
+alpha_plus_beta: passed
+multiset_formula: passed
+distinct_formula: passed
+sharp_total_count: passed
+sharp_multiset_mass: passed
+sharp_distinct_ratio: passed
+sharp_square: passed
+
+All exact symbolic assertions passed.
