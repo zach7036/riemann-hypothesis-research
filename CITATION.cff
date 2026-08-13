@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "Please cite the low-multiplicity manuscript and the upstream Claude/Anthropic theorem when using this repository."
+title: "Riemann Hypothesis research program: low-multiplicity profiles and exploratory trace methods"
+type: software
+authors:
+  - family-names: Waddle
+    given-names: Zach
+version: 0.2.0
+date-released: 2026-08-12
+license: Apache-2.0
+repository-code: "https://github.com/zach7036/riemann-hypothesis-research"
+preferred-citation:
+  type: article
+  title: "Unconditional low-multiplicity profiles for zeros of the Riemann zeta function"
+  authors:
+    - family-names: Waddle
+      given-names: Zach
+  year: 2026
+  notes: "Unrefereed draft for expert review; relies on the Claude/Anthropic 2026 unconditional two-trace theorem."
