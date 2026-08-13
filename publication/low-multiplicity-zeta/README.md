@@ -1,53 +1,56 @@
 # Low-multiplicity zeta-zero publication package
 
-This folder contains version 0.2 of the private expert-review draft and its verification materials.
+This directory contains the source and verification materials for the unrefereed manuscript *Unconditional low-multiplicity profiles for zeros of the Riemann zeta function*.
 
-## Main manuscript
+> [!CAUTION]
+> This is a theorem candidate for expert review, not a peer-reviewed result, a completed Lean formalization, or a proof of the Riemann Hypothesis.
 
-- `low_multiplicity_zeta.pdf` - revised 13-page manuscript, visually preflighted after compilation.
-- `low_multiplicity_zeta.tex` - LaTeX source.
+## Manuscript and claim ledger
 
-## Rigorous decimal certificate
+- [`low_multiplicity_zeta.tex`](low_multiplicity_zeta.tex) — LaTeX manuscript source.
+- [`THEOREM.md`](THEOREM.md) — compact theorem statement and selected constants.
+- [`publication_readiness_audit.md`](publication_readiness_audit.md) — authoritative claim ledger and outstanding obligations.
+- [`REVIEWER_COVER_NOTE.md`](REVIEWER_COVER_NOTE.md) — suggested handoff for cold expert review.
+- [`SUBMISSION_CHECKLIST.md`](SUBMISSION_CHECKLIST.md) — completed and outstanding release work.
+- [`EXPLORATORY_BRANCH_STATUS.md`](EXPLORATORY_BRANCH_STATUS.md) — separation from unfinished RH-facing branches.
 
-- `certify_low_multiplicity_exact.py` - standard-library-only rational interval certificate used for the revised manuscript.
-- `low_multiplicity_certificate.json` and `.txt` - machine-readable and human-readable output.
-- `low_multiplicity_constants.csv` - certified cutoff table.
-- `exact_multiplicity_upper.csv` - certified exact-multiplicity upper table.
+Generated PDFs are intentionally not tracked. Build the manuscript from the repository root with `./scripts/build_paper.sh`; see [`../../BINARY_ARTIFACTS.md`](../../BINARY_ARTIFACTS.md).
+
+## Exact decimal certificate
+
+- [`certify_low_multiplicity.py`](certify_low_multiplicity.py) — standard-library rational interval implementation.
+- [`certify_low_multiplicity_exact.py`](certify_low_multiplicity_exact.py) — compatibility entry point used by the documented reproduction command.
+- [`low_multiplicity_exact_certificate.txt`](low_multiplicity_exact_certificate.txt) — recorded human-readable output.
+- [`low_multiplicity_constants.csv`](low_multiplicity_constants.csv) and [`constants.csv`](constants.csv) — cutoff tables.
+- [`exact_multiplicity_upper.csv`](exact_multiplicity_upper.csv) — exact-multiplicity upper profile.
 
 ## Independent corroboration
 
-- `audit_low_multiplicity_symbolic.py` - exact symbolic identity and broad numerical stress audit.
-- `symbolic_audit.json` and `.txt` - recorded output.
-- `certify_low_multiplicity.py` and `verify_multiplicity_hierarchy.py` - independently written certificate and discretized semi-infinite optimization checks retained from version 0.1.
-- `low_multiplicity_exact_certificate.txt` and `multiplicity_hierarchy_verification.txt` - their outputs.
+- [`audit_low_multiplicity_symbolic.py`](audit_low_multiplicity_symbolic.py) — exact symbolic identity audit.
+- [`symbolic_audit.json`](symbolic_audit.json) and [`symbolic_audit.txt`](symbolic_audit.txt) — recorded symbolic output.
+- [`verify_multiplicity_hierarchy.py`](verify_multiplicity_hierarchy.py) — broad pointwise-majorant stress test.
+- [`multiplicity_hierarchy_verification.txt`](multiplicity_hierarchy_verification.txt) — recorded numerical output.
 
-## Review and formalization
+These programs verify their stated algebraic and numerical scopes. They do not independently establish the analytic master inequality.
 
-- `publication_readiness_audit.md` / `.pdf` - claim ledger and pre-submission obligations.
-- `FORMALIZATION_MAP.md` - source-level plan for a Lean extension.
-- `PRIORITY_SEARCH_LOG.md` - targeted novelty and bibliography audit.
-- `REVIEWER_COVER_NOTE.md` - handoff for cold expert review.
-- `SUBMISSION_CHECKLIST.md` - completed and outstanding release obligations.
-- `EXPLORATORY_BRANCH_STATUS.md` - quarantine ledger for unfinished RH-facing branches.
-- `CHANGELOG.md` - version history.
-- `SHA256SUMS.txt` - hashes of the folder's deliverables.
+## Formalization and priority
+
+- [`FORMALIZATION_MAP.md`](FORMALIZATION_MAP.md) — declaration-level plan for extending the upstream Lean development.
+- [`PRIORITY_SEARCH_LOG.md`](PRIORITY_SEARCH_LOG.md) — targeted, provisional novelty search.
+- [`CHANGELOG.md`](CHANGELOG.md) — manuscript-package history.
 
 ## Reproduction
 
-From this folder:
+From this directory:
 
 ```bash
 python certify_low_multiplicity_exact.py
-python certify_low_multiplicity.py
 python audit_low_multiplicity_symbolic.py
 python verify_multiplicity_hierarchy.py
-pdflatex low_multiplicity_zeta.tex
-pdflatex low_multiplicity_zeta.tex
-pdflatex low_multiplicity_zeta.tex
 ```
 
-The two exact certificate scripts require only Python's standard library. The corroborative scripts require the packages listed in the repository's `requirements-verification.txt`.
+The first command uses only Python's standard library. The other checks use packages listed in [`../../requirements-verification.txt`](../../requirements-verification.txt). To compile the paper, run `pdflatex low_multiplicity_zeta.tex` three times or use the repository build script.
 
-## Status
+## Current assessment
 
-This is an unrefereed theorem candidate built on the recent Claude/Anthropic unconditional two-trace theorem. The scalar derivation and constants are extensively checked, but the new corollaries have not yet been integrated into Lean or independently accepted by specialists. Do not describe this folder as peer reviewed, kernel checked, or a proof of RH.
+The scalar derivation and constants are internally well checked, and the required arbitrary-parameter rank–trace and perturbation lemmas exist in the pinned upstream source. External specialist review, a compiled generic-parameter Lean endgame, and comprehensive priority review remain outstanding. Until those steps are complete, describe the result as an **unrefereed theorem candidate** or **plausibly novel corollary/optimization**.
